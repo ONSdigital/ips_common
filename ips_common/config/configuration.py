@@ -8,10 +8,13 @@ from pkg_resources import resource_string
 class Configuration:
     path_matcher = re.compile(r'\$\{([^}^{]+)\}')
 
-    def __init__(self):
+    def __init__(self, package=None, yaml_file=None):
         yaml.add_implicit_resolver('!path', self.path_matcher, None, yaml.SafeLoader)
         yaml.add_constructor('!path', self._path_constructor, yaml.SafeLoader)
-        yml = resource_string(__name__, 'config.yaml')
+        if yaml_file is not None:
+            yml = resource_string(package, yaml_file)
+        else:
+            yml = resource_string(__name__, 'config.yaml')
         self.cfg = yaml.safe_load(yml)
 
     def config(self):
