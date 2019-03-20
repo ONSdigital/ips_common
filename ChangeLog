@@ -1,6 +1,8 @@
 CHANGES
 =======
 
+* Use PBR for PyPi build
+
 0.1.12
 ------
 
